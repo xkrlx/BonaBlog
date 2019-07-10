@@ -81,4 +81,22 @@ class ProfileController extends Controller
         }
 
     }
+
+    public function delete($id)
+    {
+        $user = User::Find($id);
+
+        return view('profile.delete', compact('user'));
+    }
+
+    public function destroy($id)
+    {
+        $user = User::Find(Auth::user()->id);
+
+            Auth::logout();
+
+        $user->delete();
+
+        return redirect('/')->with('success','Account removed');
+    }
 }
